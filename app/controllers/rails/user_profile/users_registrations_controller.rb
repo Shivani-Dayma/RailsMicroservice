@@ -1,5 +1,5 @@
 class Rails::UserProfile::UsersRegistrationsController < ApplicationController
-    before_action :set_user, only: [:update]
+    before_action :set_user, only: [:update,:show]
 
     def create 
       @user=User.new(user_params)
@@ -28,6 +28,11 @@ class Rails::UserProfile::UsersRegistrationsController < ApplicationController
     end
   
     def show
+      if @user.present? 
+        render json: user: @user
+      else 
+        render json: {error: "user not found"},status: :not_found
+      end
     end
   
     private 
